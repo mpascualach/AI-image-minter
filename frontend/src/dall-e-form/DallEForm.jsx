@@ -1,10 +1,17 @@
 import React, { useState } from "react";
+import ApiKeyModal from "../apikey-modal/ApiKeyModal.jsx";
+import { Button, TextField, FormGroup } from "@mui/material";
+
+import "./DallEForm.css";
 import testImage from "./assets/test-image.png";
 
 const DallEForm = () => {
   const [promptText, setPromptText] = useState("");
   const [loading, setLoading] = useState(false);
   const [imageUrls, setImageUrls] = useState([]);
+
+  const [apiKey, setApiKey] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleInputChange = (event) => {
     setPromptText(event.target.value);
@@ -38,6 +45,11 @@ const DallEForm = () => {
       });
   };
 
+  const handleModalSubmit = (key) => {
+    setApiKey(key);
+    setModalOpen(false);
+  };
+
   // Sample API response
   const sampleResponse = {
     created: 1688203383,
@@ -61,35 +73,57 @@ const DallEForm = () => {
   };
 
   return (
-    <div>
-      <button onClick={handleTestApi}></button>
-      <form onSubmit={handleSubmit}>
-        {loading ? (
-          <div>Loading...</div>
-        ) : imageUrls.length ? (
-          <>
-            <img src={imageUrls[0]} alt="Image 1" />
-            {/* TODOS: */}
-            {/* upon clicking on this image, let's sign it and upload it to the blockchain? */}
-            {/* second button for regenerating this image with the same prompt */}
-            {/* option to go back and prompt again */}
-          </>
-        ) : (
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <label htmlFor="promptInput" style={{ marginBottom: "0.5rem" }}>
-              Enter Prompt:
-            </label>
-            <input
-              type="text"
-              value={promptText}
-              onChange={handleInputChange}
-              style={{ marginBottom: "0.5rem" }}
-            />
-            <button type="submit">Submit</button>
-          </div>
-        )}
-      </form>
-    </div>
+    <>
+      <ApiKeyModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSubmit={handleModalSubmit}
+      />
+      <div>
+        <div className="testRunContainer">
+          <Button className="testRunButton" onClick={handleTestApi}>
+            Test run
+          </Button>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          {loading ? (
+            <div>Loading...</div>
+          ) : imageUrls.length ? (
+            <>
+              <img src={imageUrls[0]} alt="Image 1" />
+              {/* TODOS: */}
+              {/* upon clicking on this image, let's sign it and upload it to the blockchain? */}
+              {/* second button for regenerating this image with the same prompt */}
+              {/* option to go back and prompt again */}
+            </>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {/* <label htmlFor="promptInput" style={{ marginBottom: "0.5rem" }}>
+                Enter Prompt:
+              </label> */}
+              {/* <button type="submit">Submit</button> */}
+              <TextField
+                autoFocus
+                margin="normal"
+                id="prompt"
+                label="Prompt"
+                fullWidth
+                value={promptText}
+                onChange={handleInputChange}
+              />
+              <Button
+                color="success"
+                variant="contained"
+                onClick={() => handleSubmit(promptText)}
+              >
+                Enter prompt
+              </Button>
+            </div>
+          )}
+        </form>
+      </div>
+    </>
   );
 };
 
