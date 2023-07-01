@@ -10,9 +10,7 @@ const DallEForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Make the API request using the promptText value
-    // Replace 'YOUR_API_KEY' with your actual Dall-E API key
-    const apiKey = process.env.REACT_APP_DALLE_API_KEY;
+    const apiKey = import.meta.env.VITE_REACT_APP_DALLE_API_KEY;
     const apiUrl = `https://api.openai.com/v1/images/generations`;
     const requestOptions = {
       method: "POST",
@@ -26,12 +24,9 @@ const DallEForm = () => {
     fetch(apiUrl, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        // Handle the response data containing the generated images
-        // You can update your component state or pass the data to another component
         console.log(data);
       })
       .catch((error) => {
-        // Handle any errors that occur during the API request
         console.error("Error:", error);
       });
   };
