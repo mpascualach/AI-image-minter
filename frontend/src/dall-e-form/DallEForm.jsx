@@ -12,7 +12,7 @@ const DallEForm = () => {
 
     // Make the API request using the promptText value
     // Replace 'YOUR_API_KEY' with your actual Dall-E API key
-    const apiKey = process.env.DALLE_API_KEY;
+    const apiKey = process.env.REACT_APP_DALLE_API_KEY;
     const apiUrl = `https://api.openai.com/v1/images/generations`;
     const requestOptions = {
       method: "POST",
