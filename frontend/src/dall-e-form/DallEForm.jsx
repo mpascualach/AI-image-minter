@@ -69,7 +69,10 @@ const DallEForm = () => {
         ) : imageUrls.length ? (
           <>
             <img src={imageUrls[0]} alt="Image 1" />
-            {/* <img src={imageUrls[1]} alt="Image 2" /> */}
+            {/* TODOS: */}
+            {/* upon clicking on this image, let's sign it and upload it to the blockchain? */}
+            {/* second button for regenerating this image with the same prompt */}
+            {/* option to go back and prompt again */}
           </>
         ) : (
           <div style={{ display: "flex", flexDirection: "column" }}>
