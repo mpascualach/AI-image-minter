@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import testImage from "./assets/test-image.png";
 
 const DallEForm = () => {
   const [promptText, setPromptText] = useState("");
@@ -37,28 +38,55 @@ const DallEForm = () => {
       });
   };
 
+  // Sample API response
+  const sampleResponse = {
+    created: 1688203383,
+    data: [
+      {
+        url: testImage,
+      },
+    ],
+  };
+
+  const simulateApiResponse = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setImageUrls(sampleResponse.data.map((item) => item.url));
+    }, 2000);
+  };
+
+  const handleTestApi = () => {
+    simulateApiResponse();
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      {loading ? (
-        <div>Loading...</div>
-      ) : imageUrls.length ? (
-        <img src={imageUrls[0]} alt="Image 1" />
-        <img src={imageUrls[1]} alt="Image 2" />
-      ) : (
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label htmlFor="promptInput" style={{ marginBottom: "0.5rem" }}>
-            Enter Prompt:
-          </label>
-          <input
-            type="text"
-            value={promptText}
-            onChange={handleInputChange}
-            style={{ marginBottom: "0.5rem" }}
-          />
-          <button type="submit">Submit</button>
-        </div>
-      )}
-    </form>
+    <div>
+      <button onClick={handleTestApi}></button>
+      <form onSubmit={handleSubmit}>
+        {loading ? (
+          <div>Loading...</div>
+        ) : imageUrls.length ? (
+          <>
+            <img src={imageUrls[0]} alt="Image 1" />
+            {/* <img src={imageUrls[1]} alt="Image 2" /> */}
+          </>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label htmlFor="promptInput" style={{ marginBottom: "0.5rem" }}>
+              Enter Prompt:
+            </label>
+            <input
+              type="text"
+              value={promptText}
+              onChange={handleInputChange}
+              style={{ marginBottom: "0.5rem" }}
+            />
+            <button type="submit">Submit</button>
+          </div>
+        )}
+      </form>
+    </div>
   );
 };
 
