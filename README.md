@@ -1,3 +1,7 @@
+#### AI IMAGE Minter
+
+This is our submission for Major League Hacking's inaugural Web3 Build Hackathon.
+
 ## Inspiration
 
 A really big problem with AI is trust. People don't understand how they work. However, using blockchain technology can help solve this problem. By adding blockchain to the process, we can make the entire lifecycle of AI transparent and traceable.
