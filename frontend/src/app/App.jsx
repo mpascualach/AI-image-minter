@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ApiKeyModal from "../apikey-modal/ApiKeyModal.jsx";
-import { Button, TextField, Grid, Card, CardMedia } from "@mui/material";
+import Spinner from "../spinner/Spinner.jsx";
+import { Button, TextField, Card, CardMedia, FormControl } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 import "./App.css";
@@ -15,14 +16,18 @@ const App = () => {
   const [modalOpen, setModalOpen] = useState(true);
 
   const handleInputChange = (event) => {
+    console.log("API key currently: ", apiKey);
     setPromptText(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    setApiKey(import.meta.env.VITE_REACT_APP_DALLE_API_KEY);
+    setLoading(true);
+  }, []);
+
+  const handleSubmit = () => {
     // event.preventDefault();
     setLoading(true);
-
-    const apiKey = import.meta.env.VITE_REACT_APP_DALLE_API_KEY;
     const apiUrl = `https://api.openai.com/v1/images/generations`;
     const requestOptions = {
       method: "POST",
@@ -33,10 +38,13 @@ const App = () => {
       body: JSON.stringify({ prompt: promptText }),
     };
 
+    console.log("API key was: ", apiKey);
+
     fetch(apiUrl, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("API data loaded: ", data);
+        data.data.promptText = promptText;
+        console.log("API data loaded: ", JSON.stringify(data));
         setLoading(false);
         setImageUrls(data.data.map((item) => item.url));
       })
@@ -83,11 +91,11 @@ const App = () => {
 
   return (
     <>
-      <ApiKeyModal
+      {/* <ApiKeyModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         onSubmit={handleModalSubmit}
-      />
+      /> */}
       <div>
         <div className="testRunContainer">
           <Button className="testRunButton" onClick={handleTestApi}>
@@ -97,7 +105,7 @@ const App = () => {
 
         <form onSubmit={handleSubmit}>
           {loading ? (
-            <div>Loading...</div>
+            <Spinner />
           ) : imageUrls.length ? (
             <>
               <Card variant="outlined" sx={{ height: 600, width: 600 }}>
@@ -122,17 +130,9 @@ const App = () => {
                   </Button>
                 </CardMedia>
               </Card>
-              {/* TODOS: */}
-              {/* upon clicking on this image, let's sign it and upload it to the blockchain? */}
-              {/* second button for regenerating this image with the same prompt */}
-              {/* option to go back and prompt again */}
             </>
           ) : (
             <div style={{ display: "flex", flexDirection: "column" }}>
-              {/* <label htmlFor="promptInput" style={{ marginBottom: "0.5rem" }}>
-                Enter Prompt:
-              </label> */}
-              {/* <button type="submit">Submit</button> */}
               <TextField
                 autoFocus
                 margin="normal"
