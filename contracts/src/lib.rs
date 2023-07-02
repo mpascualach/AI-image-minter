@@ -91,9 +91,9 @@ impl Contract {
     #[payable]
     pub fn nft_mint(
         &mut self,
-        token_id: TokenId,
-        receiver_id: AccountId,
-        token_metadata: TokenMetadata,
+        token_id: TokenId,              // The ID of the token being minted
+        receiver_id: AccountId,         // The account ID of the receiver who will own the token
+        token_metadata: TokenMetadata,  // Metadata associated with the token (optional)
     ) -> Token {
         self.tokens.mint(token_id, receiver_id, Some(token_metadata))
     }
