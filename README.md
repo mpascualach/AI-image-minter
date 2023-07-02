@@ -3,7 +3,7 @@ This lets you prove to your friends that your cool art generated using DALL-E wa
 
 
 Requirements
-- git
+- Git
 - Node
 - Rust
 - A NEAR Wallet
@@ -22,5 +22,7 @@ npm run dev
 `
 
 Deploy the smart contract to near testnet
-1. cargo build
+1. `bash ./scripts/build.sh`
+2. `bash near login`
+3. `bash near deploy --wasmFile res/non_fungible_token.wasm --accountId $ID `
 
