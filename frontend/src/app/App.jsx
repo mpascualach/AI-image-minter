@@ -22,7 +22,7 @@ const App = () => {
 
   useEffect(() => {
     setApiKey(import.meta.env.VITE_REACT_APP_DALLE_API_KEY);
-    setLoading(true);
+    // setLoading(true);
   }, []);
 
   const handleSubmit = () => {
