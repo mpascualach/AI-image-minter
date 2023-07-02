@@ -43,7 +43,7 @@ const App = () => {
     fetch(apiUrl, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        data.data.promptText = promptText;
+        data.data[0].promptText = promptText;
         console.log("API data loaded: ", JSON.stringify(data));
         setLoading(false);
         setImageUrls(data.data.map((item) => item.url));
