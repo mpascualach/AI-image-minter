@@ -28,3 +28,28 @@
   bottom: 0;
   transform: translate(-50%, -50%);
 }
+
+.imageTitle {
+  margin: 0;
+  padding: 20px;
+}
+
+.generatedBy {
+  margin: 0;
+}
+
+input#prompt {
+  color: white;
+}
+
+.textCard {
+  width: fit-content;
+  margin: 0 auto;
+  position: relative;
+  top: 5px;
+}
+
+.generatedByCard {
+  margin-top: 10px;
+  padding: 5px;
+}
