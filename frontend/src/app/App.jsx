@@ -12,14 +12,14 @@ const App = () => {
   const [imageUrls, setImageUrls] = useState([]);
 
   const [apiKey, setApiKey] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(true);
 
   const handleInputChange = (event) => {
     setPromptText(event.target.value);
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setLoading(true);
 
     const apiKey = import.meta.env.VITE_REACT_APP_DALLE_API_KEY;
@@ -73,9 +73,9 @@ const App = () => {
     simulateApiResponse();
   };
 
-  useEffect(() => {
-    simulateApiResponse();
-  }, []);
+  // useEffect(() => {
+  //   simulateApiResponse();
+  // }, []);
 
   const restartForm = () => {
     setImageUrls([]);
